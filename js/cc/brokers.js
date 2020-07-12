@@ -1,0 +1,1 @@
+var brokerDomain={};var brokerPort={};var brokerProtocol={};var shopDomain={};var brokerName={};var signInShownBrokerName={};var shownBrokerName={};var brokerCtx=[];var BROKER_NAME={DEMO:"InMy.Name",FINTECHEE_DEMO:"InMy.Name",OANDA_DEMO:"Oanda Demo",OANDA_LIVE:"Oanda Live",} 
