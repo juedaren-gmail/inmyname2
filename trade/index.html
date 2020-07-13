@@ -380,7 +380,7 @@
     </div>
   </div>
   <div class="actions">
-    <div class="ui button">OK</div>
+    <div class="ui button" id="gotit">OK</div>
   </div>
 </div>
 
@@ -429,6 +429,9 @@
 
 	$(document).ready(function(){
 		$('#notification').modal('show')
+		$('#gotit').on('click', function () {
+			$('#notification').modal('hide')
+		})
 
 		$('.ui.embed').embed()
 
