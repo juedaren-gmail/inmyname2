@@ -8,6 +8,21 @@
   </url>
   
   <url>
+    <loc>https://inmy.name/backtest/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://inmy.name/ccnews/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://inmy.name/trade/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://inmy.name/categories/</loc>
   </url>
   
