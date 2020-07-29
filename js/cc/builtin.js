@@ -3677,7 +3677,7 @@ function importBuiltInIndicators () {
 function importBuiltInEAs () {
 	importBuiltInEA(
 		"mql_indicator_loader_plugin",
-		"mql_plugin to make MQL-based indicators runnable on Fintechee(v1.03)",
+		"mql_plugin to make MQL-based indicators runnable on Fintechee(v1.05)",
 		[{ // parameters
 			name: "definition",
 			value: "",
@@ -3692,7 +3692,7 @@ function importBuiltInEAs () {
 			var loadMql = function (definition) {
 				return new Promise(function (rs, rj) {
 					var tags = document.getElementsByTagName("script")
-					for (var i = tags.length; i >= 0; i--) {
+					for (var i = tags.length - 1; i >= 0; i--) {
 						if (tags[i] && tags[i].getAttribute("src") != null && tags[i].getAttribute("src") == definition.url) {
 							tags[i].parentNode.removeChild(tags[i])
 							break
@@ -5078,7 +5078,7 @@ function importBuiltInEAs () {
 
 	importBuiltInEA(
 		"mql_ea_loader_plugin",
-		"mql_plugin to make MQL-based EAs runnable on Fintechee(v1.05)",
+		"mql_plugin to make MQL-based EAs runnable on Fintechee(v1.06)",
 		[{ // parameters
 			name: "definition",
 			value: "",
@@ -5094,7 +5094,7 @@ function importBuiltInEAs () {
 				return new Promise(function (rs, rj) {
 					var scriptPromise = new Promise(function (resolve, reject) {
 						var tags = document.getElementsByTagName("script")
-						for (var i = tags.length; i >= 0; i--) {
+						for (var i = tags.length - 1; i >= 0; i--) {
 							if (tags[i] && tags[i].getAttribute("src") != null && tags[i].getAttribute("src") == definition.url) {
 								tags[i].parentNode.removeChild(tags[i])
 								break
@@ -7029,6 +7029,189 @@ function importBuiltInEAs () {
 			} else if (result > 0.5 + threshold) {
 				sendOrder(brokerName, accountId, symbolName, ORDER_TYPE.OP_SELL, 0, 0, volume, bid-takeProfit, ask+3*takeProfit, "", 0, 0)
 			}
+		}
+	)
+
+	importBuiltInEA(
+		"payment_gateway_eos_lib_loader",
+		"A payment gateway plugin to load EOS libraries(v1.0)",
+		[{ // parameters
+			name: "privateKey",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "jsonRpcUrl",
+			value: "https://nodes.get-scatter.com",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "jssig",
+			value: "https://www.fintechee.com/js/eos/eosjs-jssig.min.js",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "jsonrpc",
+			value: "https://www.fintechee.com/js/eos/eosjs-jsonrpc.min.js",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "api",
+			value: "https://www.fintechee.com/js/eos/eosjs-api.min.js",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var defaultPrivateKey = getEAParameter(context, "privateKey")
+			var jsonRpcUrl = getEAParameter(context, "jsonRpcUrl")
+			var jssig = getEAParameter(context, "jssig")
+			var jsonrpc = getEAParameter(context, "jsonrpc")
+			var api = getEAParameter(context, "api")
+
+			if (defaultPrivateKey == null || defaultPrivateKey == "") {
+				popupErrorMessage("The private key should not be empty.")
+				return
+			}
+
+			var tags = document.getElementsByTagName("script")
+			for (var i = tags.length - 1; i >= 0; i--) {
+				if (tags[i] && tags[i].getAttribute("src") != null && (tags[i].getAttribute("src") == jssig || tags[i].getAttribute("src") == jsonrpc || tags[i].getAttribute("src") == api)) {
+					tags[i].parentNode.removeChild(tags[i])
+					break
+				}
+			}
+
+			var script1 = document.createElement("script")
+	    document.body.appendChild(script1)
+	    script1.onload = function () {
+	      var script2 = document.createElement("script")
+	      document.body.appendChild(script2)
+	      script2.onload = function () {
+	        var script3 = document.createElement("script")
+	        document.body.appendChild(script3)
+	        script3.onload = function () {
+						window.eosjs_jsonrpc = eosjs_jsonrpc
+						window.eos_rpc = new eosjs_jsonrpc.JsonRpc(jsonRpcUrl)
+					  window.eos_signatureProvider = new eosjs_jssig.JsSignatureProvider([defaultPrivateKey])
+					  window.eos_api = new eosjs_api.Api({rpc: window.eos_rpc, signatureProvider: window.eos_signatureProvider})
+					}
+	        script3.onerror = function () {}
+	        script3.async = true
+	        script3.src = jssig
+	      }
+	      script2.onerror = function () {}
+	      script2.async = true
+	      script2.src = jsonrpc
+	    }
+	    script1.onerror = function () {}
+	    script1.async = true
+	    script1.src = api
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
+		}
+	)
+
+	importBuiltInEA(
+		"payment_gateway_eos",
+		"A payment gateway plugin to make you fund(deposit or withdraw) via EOS platform(v1.0)",
+		[{ // parameters
+			name: "from",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "to",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "amount",
+			value: 0,
+			required: true,
+			type: PARAMETER_TYPE.INTEGER,
+			range: [0, null]
+		}, {
+			name: "currency",
+			value: "SYS",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "memo",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var from = getEAParameter(context, "from")
+			var to = getEAParameter(context, "to")
+			var amount = getEAParameter(context, "amount")
+			var currency = getEAParameter(context, "currency")
+			var memo = getEAParameter(context, "memo")
+
+			if (from == null || from == "") {
+				popupErrorMessage("The sender should not be empty.")
+				return
+			}
+			if (to == null || to == "") {
+				popupErrorMessage("The receiver should not be empty.")
+				return
+			}
+			if (amount <= 0) {
+				popupErrorMessage("The amount should be greater than zero.")
+				return
+			}
+			if (memo == null) {
+				memo = ""
+			}
+
+			const api = window.eos_api;
+
+	    (async () => {
+	      try {
+	        const result = await api.transact({
+	          actions: [{
+	              account: from,
+	              name: "transfer",
+	              authorization: [{
+	                  actor: from,
+	                  permission: "active",
+	              }],
+	              data: {
+	                  from: from,
+	                  to: to,
+	                  quantity: Math.floor(amount) + ".0000 " + currency,
+	                  memo: memo,
+	              },
+	          }]
+	        }, {
+	          blocksBehind: 3,
+	          expireSeconds: 30,
+	        })
+
+	        popupMessage("Transaction pushed!\n\n" + JSON.stringify(result, null, 2))
+	      } catch (e) {
+					popupErrorMessage("Caught exception: " + e)
+
+	        if (e instanceof window.eosjs_jsonrpc.RpcError) {
+						popupErrorMessage(JSON.stringify(e.json, null, 2))
+					}
+	      }
+	    })()
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
 		}
 	)
 }
