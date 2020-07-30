@@ -7034,7 +7034,7 @@ function importBuiltInEAs () {
 
 	importBuiltInEA(
 		"payment_gateway_eos_lib_loader",
-		"A payment gateway plugin to load EOS libraries(v1.0)",
+		"A payment gateway plugin to load EOS libraries(v1.01)",
 		[{ // parameters
 			name: "privateKey",
 			value: "",
@@ -7082,7 +7082,6 @@ function importBuiltInEAs () {
 			for (var i = tags.length - 1; i >= 0; i--) {
 				if (tags[i] && tags[i].getAttribute("src") != null && (tags[i].getAttribute("src") == jssig || tags[i].getAttribute("src") == jsonrpc || tags[i].getAttribute("src") == api)) {
 					tags[i].parentNode.removeChild(tags[i])
-					break
 				}
 			}
 
@@ -7120,7 +7119,7 @@ function importBuiltInEAs () {
 
 	importBuiltInEA(
 		"payment_gateway_eos",
-		"A payment gateway plugin to make you fund(deposit or withdraw) via EOS platform(v1.0)",
+		"A payment gateway plugin to make you fund(deposit or withdraw) via EOS platform(v1.01)",
 		[{ // parameters
 			name: "from",
 			value: "",
@@ -7175,11 +7174,9 @@ function importBuiltInEAs () {
 				memo = ""
 			}
 
-			const api = window.eos_api;
-
 	    (async () => {
 	      try {
-	        const result = await api.transact({
+	        const result = await window.eos_api.transact({
 	          actions: [{
 	              account: from,
 	              name: "transfer",
