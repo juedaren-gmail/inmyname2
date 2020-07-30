@@ -7095,9 +7095,9 @@ function importBuiltInEAs () {
 	        document.body.appendChild(script3)
 	        script3.onload = function () {
 						window.eosjs_jsonrpc = eosjs_jsonrpc
-						window.eos_rpc = new eosjs_jsonrpc.JsonRpc(jsonRpcUrl)
-					  window.eos_signatureProvider = new eosjs_jssig.JsSignatureProvider([defaultPrivateKey])
-					  window.eos_api = new eosjs_api.Api({rpc: window.eos_rpc, signatureProvider: window.eos_signatureProvider})
+						var eos_rpc = new eosjs_jsonrpc.JsonRpc(jsonRpcUrl)
+					  var eos_signatureProvider = new eosjs_jssig.JsSignatureProvider([defaultPrivateKey])
+					  window.eos_api = new eosjs_api.Api({rpc: eos_rpc, signatureProvider: eos_signatureProvider})
 					}
 	        script3.onerror = function () {}
 	        script3.async = true
@@ -7119,8 +7119,14 @@ function importBuiltInEAs () {
 
 	importBuiltInEA(
 		"payment_gateway_eos",
-		"A payment gateway plugin to make you fund(deposit or withdraw) via EOS platform(v1.01)",
+		"A payment gateway plugin to make you fund(deposit or withdraw) via EOS platform(v1.02)",
 		[{ // parameters
+			name: "contract",
+			value: "eosio.token",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
 			name: "from",
 			value: "",
 			required: false,
@@ -7152,6 +7158,7 @@ function importBuiltInEAs () {
 			range: null
 		}],
 		function (context) { // Init()
+			var contract = getEAParameter(context, "contract")
 			var from = getEAParameter(context, "from")
 			var to = getEAParameter(context, "to")
 			var amount = getEAParameter(context, "amount")
@@ -7178,7 +7185,7 @@ function importBuiltInEAs () {
 	      try {
 	        const result = await window.eos_api.transact({
 	          actions: [{
-	              account: from,
+	              account: contract,
 	              name: "transfer",
 	              authorization: [{
 	                  actor: from,
