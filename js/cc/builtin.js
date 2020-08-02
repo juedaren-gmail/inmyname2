@@ -7324,12 +7324,12 @@ function importBuiltInEAs () {
 	                  from: from,
 	                  to: to,
 	                  quantity: Math.floor(amount) + ".0000 " + currency,
-	                  memo: memo,
-	              },
+	                  memo: memo
+	              }
 	          }]
 	        }, {
 	          blocksBehind: 3,
-	          expireSeconds: 30,
+	          expireSeconds: 30
 	        })
 
 	        popupMessage("Transaction pushed!\n\n" + JSON.stringify(result, null, 2))
@@ -7341,6 +7341,500 @@ function importBuiltInEAs () {
 					}
 	      }
 	    })()
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
+		}
+	)
+
+	importBuiltInEA(
+		"decentralized_exchange_eos_propose",
+		"A decentralized exchange plugin to propose for exchanging digital assets via EOS platform(v1.0)",
+		[{ // parameters
+			name: "proposalName",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "contract",
+			value: "eosio.token",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "proposer",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "exchange",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "escrow",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "to",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "amount",
+			value: 0,
+			required: true,
+			type: PARAMETER_TYPE.INTEGER,
+			range: [0, null]
+		}, {
+			name: "currency",
+			value: "SYS",
+			required: true,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "memo",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var proposalName = getEAParameter(context, "proposalName")
+			var contract = getEAParameter(context, "contract")
+			var proposer = getEAParameter(context, "proposer")
+			var exchange = getEAParameter(context, "exchange")
+			var escrow = getEAParameter(context, "escrow")
+			var to = getEAParameter(context, "to")
+			var amount = getEAParameter(context, "amount")
+			var currency = getEAParameter(context, "currency")
+			var memo = getEAParameter(context, "memo")
+
+			if (proposalName == null || proposalName == "") {
+				popupErrorMessage("The proposal name should not be empty.")
+				return
+			}
+			if (proposer == null || proposer == "") {
+				popupErrorMessage("The proposer should not be empty.")
+				return
+			}
+			if (exchange == null || exchange == "") {
+				popupErrorMessage("The exchange should not be empty.")
+				return
+			}
+			if (escrow == null || escrow == "") {
+				popupErrorMessage("The escrow account should not be empty.")
+				return
+			}
+			if (to == null || to == "") {
+				popupErrorMessage("The receiver should not be empty.")
+				return
+			}
+			if (amount <= 0) {
+				popupErrorMessage("The amount should be greater than zero.")
+				return
+			}
+			if (memo == null) {
+				memo = ""
+			}
+
+			const actions = [{
+				account: contract,
+				name: "transfer",
+				authorization: [{
+					actor: escrow,
+					permission: "active",
+				}],
+				data: {
+					from: escrow,
+					to: to,
+					quantity: Math.floor(amount) + ".0000 " + currency,
+					memo: memo
+				}
+			}];
+
+			(async () => {
+				try {
+				  const serialized_actions = await window.eos_api.serializeActions(actions)
+
+					const proposeInput = {
+						proposer: proposer,
+						proposal_name: proposalName,
+						requested: [{
+							actor: exchange,
+							permission: "active"
+						},{
+							actor: proposer,
+							permission: "active"
+						}],
+						trx: {
+							expiration: new Date(new Date().getTime() + 3600000).toISOString().slice(0,19),
+							ref_block_num: 0,
+							ref_block_prefix: 0,
+							max_net_usage_words: 0,
+							max_cpu_usage_ms: 0,
+							delay_sec: 0,
+							context_free_actions: [],
+							actions: serialized_actions,
+							transaction_extensions: []
+						}
+					}
+
+					const result = await window.eos_api.transact({
+						actions: [{
+							account: "eosio.msig",
+							name: "propose",
+							authorization: [{
+								actor: proposer,
+								permission: "active"
+							}],
+							data: proposeInput
+						}]
+					}, {
+						blocksBehind: 3,
+						expireSeconds: 30,
+						broadcast: true,
+						sign: true
+					})
+
+					popupMessage("Proposed!\n\n" + JSON.stringify(result, null, 2))
+				} catch (e) {
+					popupErrorMessage("Caught exception: " + e)
+
+	        if (e instanceof window.eosjs_jsonrpc.RpcError) {
+						popupErrorMessage(JSON.stringify(e.json, null, 2))
+					}
+	      }
+			})()
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
+		}
+	)
+
+	importBuiltInEA(
+		"decentralized_exchange_eos_approve",
+		"A decentralized exchange plugin to approve a proposal for exchanging digital assets via EOS platform(v1.0)",
+		[{ // parameters
+			name: "proposalName",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "proposer",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "approver",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var proposalName = getEAParameter(context, "proposalName")
+			var proposer = getEAParameter(context, "proposer")
+			var approver = getEAParameter(context, "approver")
+
+			if (proposalName == null || proposalName == "") {
+				popupErrorMessage("The proposal name should not be empty.")
+				return
+			}
+			if (proposer == null || proposer == "") {
+				popupErrorMessage("The proposer should not be empty.")
+				return
+			}
+			if (approver == null || approver == "") {
+				popupErrorMessage("The approver should not be empty.")
+				return
+			}
+
+			(async () => {
+				try {
+					const result = await window.eos_api.transact({
+						actions: [{
+							account: "eosio.msig",
+							name: "approve",
+							authorization: [{
+								actor: approver,
+								permission: "active"
+							}],
+							data: {
+								proposer: proposer,
+								proposal_name: proposalName,
+								level: {
+									actor: approver,
+									permission: "active",
+								}
+							}
+						}]
+					}, {
+						blocksBehind: 3,
+						expireSeconds: 30,
+						broadcast: true,
+						sign: true
+					})
+
+					popupMessage("Approved!\n\n" + JSON.stringify(result, null, 2))
+				} catch (e) {
+					popupErrorMessage("Caught exception: " + e)
+
+	        if (e instanceof window.eosjs_jsonrpc.RpcError) {
+						popupErrorMessage(JSON.stringify(e.json, null, 2))
+					}
+	      }
+			})()
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
+		}
+	)
+
+	importBuiltInEA(
+		"decentralized_exchange_eos_unapprove",
+		"A decentralized exchange plugin to unapprove a proposal for exchanging digital assets via EOS platform(v1.0)",
+		[{ // parameters
+			name: "proposalName",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "proposer",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "actor",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var proposalName = getEAParameter(context, "proposalName")
+			var proposer = getEAParameter(context, "proposer")
+			var actor = getEAParameter(context, "actor")
+
+			if (proposalName == null || proposalName == "") {
+				popupErrorMessage("The proposal name should not be empty.")
+				return
+			}
+			if (proposer == null || proposer == "") {
+				popupErrorMessage("The proposer should not be empty.")
+				return
+			}
+			if (actor == null || actor == "") {
+				popupErrorMessage("The actor should not be empty.")
+				return
+			}
+
+			(async () => {
+				try {
+					const result = await window.eos_api.transact({
+						actions: [{
+							account: "eosio.msig",
+							name: "unapprove",
+							authorization: [{
+								actor: actor,
+								permission: "active"
+							}],
+							data: {
+								proposer: proposer,
+								proposal_name: proposalName,
+								level: {
+									actor: actor,
+									permission: "active",
+								}
+							}
+						}]
+					}, {
+						blocksBehind: 3,
+						expireSeconds: 30,
+						broadcast: true,
+						sign: true
+					})
+
+					popupMessage("Unapproved!\n\n" + JSON.stringify(result, null, 2))
+				} catch (e) {
+					popupErrorMessage("Caught exception: " + e)
+
+	        if (e instanceof window.eosjs_jsonrpc.RpcError) {
+						popupErrorMessage(JSON.stringify(e.json, null, 2))
+					}
+	      }
+			})()
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
+		}
+	)
+
+	importBuiltInEA(
+		"decentralized_exchange_eos_cancel",
+		"A decentralized exchange plugin to cancel a proposal for exchanging digital assets via EOS platform(v1.0)",
+		[{ // parameters
+			name: "proposalName",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "proposer",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "canceler",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var proposalName = getEAParameter(context, "proposalName")
+			var proposer = getEAParameter(context, "proposer")
+			var canceler = getEAParameter(context, "canceler")
+
+			if (proposalName == null || proposalName == "") {
+				popupErrorMessage("The proposal name should not be empty.")
+				return
+			}
+			if (proposer == null || proposer == "") {
+				popupErrorMessage("The proposer should not be empty.")
+				return
+			}
+			if (canceler == null || canceler == "") {
+				popupErrorMessage("The canceler should not be empty.")
+				return
+			}
+
+			(async () => {
+				try {
+					const result = await window.eos_api.transact({
+						actions: [{
+							account: "eosio.msig",
+							name: "cancel",
+							authorization: [{
+								actor: canceler,
+								permission: "active"
+							}],
+							data: {
+								proposer: proposer,
+								proposal_name: proposalName,
+								canceler: canceler
+							}
+						}]
+					}, {
+						blocksBehind: 3,
+						expireSeconds: 30,
+						broadcast: true,
+						sign: true
+					})
+
+					popupMessage("Canceled!\n\n" + JSON.stringify(result, null, 2))
+				} catch (e) {
+					popupErrorMessage("Caught exception: " + e)
+
+	        if (e instanceof window.eosjs_jsonrpc.RpcError) {
+						popupErrorMessage(JSON.stringify(e.json, null, 2))
+					}
+	      }
+			})()
+		},
+		function (context) { // Deinit()
+		},
+		function (context) { // OnTick()
+		}
+	)
+
+	importBuiltInEA(
+		"decentralized_exchange_eos_exec",
+		"A decentralized exchange plugin to execute a transaction of exchanging digital assets via EOS platform(v1.0)",
+		[{ // parameters
+			name: "proposalName",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "proposer",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}, {
+			name: "executor",
+			value: "",
+			required: false,
+			type: PARAMETER_TYPE.STRING,
+			range: null
+		}],
+		function (context) { // Init()
+			var proposalName = getEAParameter(context, "proposalName")
+			var proposer = getEAParameter(context, "proposer")
+			var executor = getEAParameter(context, "executor")
+
+			if (proposalName == null || proposalName == "") {
+				popupErrorMessage("The proposal name should not be empty.")
+				return
+			}
+			if (proposer == null || proposer == "") {
+				popupErrorMessage("The proposer should not be empty.")
+				return
+			}
+			if (executor == null || executor == "") {
+				popupErrorMessage("The executor should not be empty.")
+				return
+			}
+
+			(async () => {
+				try {
+					const result = await window.eos_api.transact({
+						actions: [{
+							account: "eosio.msig",
+							name: "exec",
+							authorization: [{
+								actor: executor,
+								permission: "active"
+							}],
+							data: {
+								proposer: proposer,
+								proposal_name: proposalName,
+								executer: executor
+							}
+						}]
+					}, {
+						blocksBehind: 3,
+						expireSeconds: 30,
+						broadcast: true,
+						sign: true
+					})
+
+					popupMessage("Transaction pushed!\n\n" + JSON.stringify(result, null, 2))
+				} catch (e) {
+					popupErrorMessage("Caught exception: " + e)
+
+	        if (e instanceof window.eosjs_jsonrpc.RpcError) {
+						popupErrorMessage(JSON.stringify(e.json, null, 2))
+					}
+	      }
+			})()
 		},
 		function (context) { // Deinit()
 		},
