@@ -11,13 +11,13 @@ var shopDomain = {
   scopemarkets: "channel-sea.cc"
 };
 var brokerName = {
-  scopemarkets: "am"
+  scopemarkets: "in"
 };
 var signInShownBrokerName = {
-  scopemarkets: "Forex Spread Betting"
+  scopemarkets: "InMyName ATC"
 };
 var shownBrokerName = {
-  scopemarkets: "Forex Spread Betting"
+  scopemarkets: "InMyName Automated Trading Championship"
 };
 var brokerCtx = [];
 brokerCtx[brokerName.scopemarkets] = {
