@@ -7299,7 +7299,7 @@ function importBuiltInEAs () {
 				return
 			}
 			if (to == null || to == "") {
-				popupErrorMessage("The receiver should not be empty.")
+				popupErrorMessage("The recipient should not be empty.")
 				return
 			}
 			if (amount <= 0) {
