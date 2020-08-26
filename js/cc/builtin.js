@@ -5074,7 +5074,7 @@ function importBuiltInEAs () {
 
 	importBuiltInEA(
 		"mql_ea_loader_plugin",
-		"mql_plugin to make MQL-based EAs runnable on Fintechee(v1.08)",
+		"mql_plugin to make MQL-based EAs runnable on Fintechee(v1.09)",
 		[{ // parameters
 			name: "definition",
 			value: "",
@@ -6433,7 +6433,7 @@ function importBuiltInEAs () {
 										getQuotes (context, brokerName, accountId, symbolName)
 									}
 
-									window.mqlEAs[eaName].onTick(uid, 10000, 0, 0, 0, 1.0 / window.mqlEAsBuffer[uid + ""].symbol.toFixed, Math.log10(window.mqlEAsBuffer[uid + ""].symbol.toFixed))
+									window.mqlEAs[eaName].onTick(uid, 10000, 0, 0, 1.0 / window.mqlEAsBuffer[uid + ""].symbol.toFixed, Math.log10(window.mqlEAsBuffer[uid + ""].symbol.toFixed))
 								},
 								function (context) { // Deinit()
 									delete window.mqlEAsBuffer[context.uid + ""]
