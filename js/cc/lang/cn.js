@@ -18,6 +18,7 @@ var dict = {
     aSH12: '报表',
     aSH13: '密码',
     aSH14: '登出',
+    aSH15: '我接受一键式下单交易的条款。',
     cRBT1: '报表',
     gR1: '账户',
     gR2: '货币',
@@ -99,6 +100,20 @@ var dict = {
 			'不用担心您的账户安全。在观摩模式下, 客户是不允许以您的名义下单或交易的。 ' +
 			'请确认继续。',
     cSNWDD1: '在您同意此操作后, 任何人都不允许查看您的交易记录了。请确认继续。',
+    cOCDH1: '您愿意接受一键式下单交易条款吗?',
+    cNOCDH1: '您想恢复默认下单交易模式吗?',
+    cOCDD1: 'Please note that you are about to enable One-Click Trading mode. By clicking the "OK" button below, you acknowledge that you have read and understood the following terms and conditions, and you agree to be bound hereby. Your current version of the WEB trader enables you to choose between the following modes for sending orders. You agree that you will be bound by the procedures and conditions specified herein with respect to each such mode. ' +
+    '1. The Default mode for sending orders refers to a process with two steps: (a) open the dialog to send an order or modify an existing trade, then select the parameters including the order type, the price, the volume, the take-profit and the stop-loss if needed. (b) confirm the order or the trade by clicking the "Send Order" button or the "Modify Order" button based on the specific order type selected and your intentions. Your order or your command to modify the existing trade will not be submitted until you have done both of the steps. ' +
+    '2. The One-Click Trading mode for sending orders refers to a One-Click step either: ' +
+    '* Your order to open a trade will be submitted immediately when you click either the "SELL" or the "BUY" buttons on the Symbols (Instruments) Panel in the Market sidebar. ' +
+    '* Your order to close an open trade will be submitted immediately when you click the Close ("X") button corresponding to the specific open trade in the Open Trades List. ' +
+    'THERE WILL BE NO SUBSEQUENT CONFIRMATION PROMPT FOR YOU TO ENGAGE. YOU WILL NOT BE ABLE TO REVOKE OR CHANGE YOUR ORDER ONCE YOU ARE DONE CLICKING. UNDER NORMAL MARKET CONDITIONS AND SYSTEM PERFORMANCE, A MARKET ORDER WILL BE PROMPTLY FILLED AFTER SUBMISSION AND YOU WILL HAVE ENTERED INTO A BINDING TRANSACTION. ' +
+    'You can enable or disable One-Click Trading mode on the Accounts sidebar. ' +
+    'By enabling the One-Click Trading mode, you understand that your orders will be submitted by clicking the "SELL" or "BUY" button or in any other way described above, without any further order confirmation. You agree to accept all risks associated with the use of the order submission mode you have chosen, including without limitation, the risks of software program errors, loss of data, damage to equipment, unavailability, or interruption of operations. ' +
+    'You agree to fully indemnify and hold harmless our trading platform services from any and all losses, costs and expenses that it may incur as a result of any such errors, omissions or mistakes made by you, or any other person trading on behalf of your operations.',
+    cNOCDD1: 'Please note that you are about to disable One-Click Trading mode. By clicking the "OK" button below, you acknowledge that you have read and understood the following terms and conditions, and you agree to restore the Default trading mode. ' +
+    'The Default mode for sending orders refers to a process with two steps: (a) open the dialog to send an order or modify an existing trade, then select the parameters including the order type, the price, the volume, the take-profit and the stop-loss if needed. (b) confirm the order or the trade by clicking the "Send Order" button or the "Modify Order" button based on the specific order type selected and your intentions. Your order or your command to modify the existing trade will not be submitted until you have done both of the steps. ' +
+    'You can enable or disable One-Click Trading mode on the Accounts sidebar. ',
     cancel: '取消',
     ok: '确认',
     oTPH1: '挂单',
@@ -272,6 +287,7 @@ var dict = {
     sPHL1: '下单的量(手数)',
     sPHL2: '更多品种...',
     sPHL3: '下单的量(投注 / 点)',
+    sPHL4: '一键式下单',
     sPAH1: '图表',
     sPAH2: '订单详细',
     sPAH3: '卖出',
@@ -567,6 +583,16 @@ var dict = {
     m254: "输入数据的名称已存在。",
     m255: "输入数据的索引已存在。",
     m256: "输出数据的名称已存在。",
+    m257: "必要的报价不存在。",
+    m258: "因为该账户是注册在Oanda的, 接受一键式下单交易的操作失败了。",
+    m259: "因为该账户是注册在Oanda的, 拒绝一键式下单交易的操作失败了。",
+    m260: "您成功接受了一键式下单交易。",
+    m261: "您成功拒绝了一键式下单交易。",
+    m262: "因为是观摩模式, 接受一键式下单交易的操作失败了。",
+    m263: "因为是观摩模式, 拒绝一键式下单交易的操作失败了。",
+    m264: "我们检测到您的连接数量已经超过了最大值。所以系统阻断了您的当前位置一段时间作为惩罚措施。" +
+      "最大值被超越的一个可能的原因是您打开了过量的我们WEB交易终端的关联页面。如果符合这种情况，请您关闭过量的页面，然后等待一会儿。连接会被自动恢复。" +
+      "另一个原因是您可能使用了代理服务器，同时这台代理服务器正被很多人使用。如果符合这种情况，请切换您的浏览器代理服务器设定到另一台代理服务器，然后刷新下我们WEB交易终端的页面。",
     clDH1: "坐标轴",
     clDH2: "面板色",
     clDH3: "文字",

@@ -18,6 +18,7 @@ var dict = {
     aSH12: 'Report',
     aSH13: 'Password',
     aSH14: 'Logout',
+    aSH15: 'I Accept these Terms and Conditions for One-Click Trading.',
     cRBT1: 'Report',
     gR1: 'Account',
     gR2: 'Currency',
@@ -99,6 +100,20 @@ var dict = {
 			'No worry about the security of your account. In investor mode, the guest is not allowed to send order or trade under your name. ' +
 			'Please press OK to continue.',
     cSNWDD1: 'Everybody will not be allowed to check your trading records after you agree with this operation. Please press OK to continue.',
+    cOCDH1: 'Would You Like to Accept These Terms and Conditions for One-Click Trading?',
+    cNOCDH1: 'Would You Like to Restore the Default Trading Mode?',
+    cOCDD1: 'Please note that you are about to enable One-Click Trading mode. By clicking the "OK" button below, you acknowledge that you have read and understood the following terms and conditions, and you agree to be bound hereby. Your current version of the WEB trader enables you to choose between the following modes for sending orders. You agree that you will be bound by the procedures and conditions specified herein with respect to each such mode. ' +
+    '1. The Default mode for sending orders refers to a process with two steps: (a) open the dialog to send an order or modify an existing trade, then select the parameters including the order type, the price, the volume, the take-profit and the stop-loss if needed. (b) confirm the order or the trade by clicking the "Send Order" button or the "Modify Order" button based on the specific order type selected and your intentions. Your order or your command to modify the existing trade will not be submitted until you have done both of the steps. ' +
+    '2. The One-Click Trading mode for sending orders refers to a One-Click step either: ' +
+    '* Your order to open a trade will be submitted immediately when you click either the "SELL" or the "BUY" buttons on the Symbols (Instruments) Panel in the Market sidebar. ' +
+    '* Your order to close an open trade will be submitted immediately when you click the Close ("X") button corresponding to the specific open trade in the Open Trades List. ' +
+    'THERE WILL BE NO SUBSEQUENT CONFIRMATION PROMPT FOR YOU TO ENGAGE. YOU WILL NOT BE ABLE TO REVOKE OR CHANGE YOUR ORDER ONCE YOU ARE DONE CLICKING. UNDER NORMAL MARKET CONDITIONS AND SYSTEM PERFORMANCE, A MARKET ORDER WILL BE PROMPTLY FILLED AFTER SUBMISSION AND YOU WILL HAVE ENTERED INTO A BINDING TRANSACTION. ' +
+    'You can enable or disable One-Click Trading mode on the Accounts sidebar. ' +
+    'By enabling the One-Click Trading mode, you understand that your orders will be submitted by clicking the "SELL" or "BUY" button or in any other way described above, without any further order confirmation. You agree to accept all risks associated with the use of the order submission mode you have chosen, including without limitation, the risks of software program errors, loss of data, damage to equipment, unavailability, or interruption of operations. ' +
+    'You agree to fully indemnify and hold harmless our trading platform services from any and all losses, costs and expenses that it may incur as a result of any such errors, omissions or mistakes made by you, or any other person trading on behalf of your operations.',
+    cNOCDD1: 'Please note that you are about to disable One-Click Trading mode. By clicking the "OK" button below, you acknowledge that you have read and understood the following terms and conditions, and you agree to restore the Default trading mode. ' +
+    'The Default mode for sending orders refers to a process with two steps: (a) open the dialog to send an order or modify an existing trade, then select the parameters including the order type, the price, the volume, the take-profit and the stop-loss if needed. (b) confirm the order or the trade by clicking the "Send Order" button or the "Modify Order" button based on the specific order type selected and your intentions. Your order or your command to modify the existing trade will not be submitted until you have done both of the steps. ' +
+    'You can enable or disable One-Click Trading mode on the Accounts sidebar. ',
     cancel: 'Cancel',
     ok: 'OK',
     oTPH1: 'Pending Orders',
@@ -272,6 +287,7 @@ var dict = {
     sPHL1: 'Volume(Lots) to Order',
     sPHL2: 'More Symbols...',
     sPHL3: 'Volume(Bet / Pip) to Order',
+    sPHL4: 'One-Click Order',
     sPAH1: 'Chart Window',
     sPAH2: 'Send Order',
     sPAH3: 'Sell',
@@ -567,6 +583,16 @@ var dict = {
     m254: "The name of the input data has already existed.",
     m255: "The index of the input data has already existed.",
     m256: "The name of the output data has already existed.",
+    m257: "The quotes required don't exist.",
+    m258: "Failed to accept these terms and conditions for One-Click trading because this is an account at Oanda.",
+    m259: "Failed to reject these terms and conditions for One-Click trading because this is an account at Oanda.",
+    m260: "You accepted these terms and conditions for One-Click trading successfully.",
+    m261: "You rejected these terms and conditions for One-Click trading successfully.",
+    m262: "Failed to accept these terms and conditions for One-Click trading because of investor mode.",
+    m263: "Failed to reject these terms and conditions for One-Click trading because of investor mode.",
+    m264: "We detected that the number of your connections has exceeded the maximum value. So, the system blocked your location for a while as a penalty. " +
+      "One of the possible reasons why the maximum value was exceeded is that you may have opened too many pages associated with our WEB trader. If so, please close the redundant pages and wait for a while. The connections would be recovered automatically. " +
+      "Another reason is that you may use a proxy and the proxy is being used by too many people. If so, please switch your browser's proxy setting to another proxy and then refresh the page of our WEB trader.",
     clDH1: "Axis",
     clDH2: "Background",
     clDH3: "Text",
