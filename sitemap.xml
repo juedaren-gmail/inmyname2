@@ -3,31 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://inmy.name/</loc>
+    <loc>https://www.inmy.name/</loc>
     <lastmod>2020-07-01T00:00:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://inmy.name/backtest/</loc>
+    <loc>https://www.inmy.name/backtest/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://inmy.name/ccnews/</loc>
+    <loc>https://www.inmy.name/ccnews/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://inmy.name/trade/</loc>
+    <loc>https://www.inmy.name/trade/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://inmy.name/categories/</loc>
+    <loc>https://www.inmy.name/categories/</loc>
   </url>
   
   <url>
-    <loc>https://inmy.name/tags/</loc>
+    <loc>https://www.inmy.name/tags/</loc>
   </url>
   
 </urlset>

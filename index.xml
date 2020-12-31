@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>In My Name</title>
-    <link>https://inmy.name/</link>
+    <link>https://www.inmy.name/</link>
     <description>Recent content on In My Name</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0800</lastBuildDate>
     
-	<atom:link href="https://inmy.name/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.inmy.name/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
