@@ -185,6 +185,9 @@
 		.ui.vertical.menu .dropdown.item:not(.upward) .menu {
 			top: 0!important;
 		}
+		#news::-webkit-scrollbar {
+		  display: none;
+		}
 	</style>
 </head>
 <body>
@@ -198,12 +201,12 @@
 		<div class="row">
 			<div id="test_s"></div>
 		</div>
-
-		<div class="ui hidden divider"></div>
-
-		<div class="row" style="height:100%">
-			<iframe src="https://www.inmy.name/ccnews/"></iframe>
-		</div>
+	</div>
+</div>
+<div id="news" class="ui noanimation right vertical menu sidebar"
+	style="padding-left:0px;padding-right:0px;width:350px;height:100%;overflow:hidden;-ms-overflow-style:none;scrollbar-width:none;">
+	<div style="width:100%;height:100%;overflow-y:scroll;padding-right:0px;box-sizing:content-box;padding-top:0px;-ms-overflow-style:none;scrollbar-width:none;">
+		<iframe src="https://www.fintechee.com/ccnews/"></iframe>
 	</div>
 </div>
 <div id="accountsummarysidebar" class="ui noanimation right vertical menu sidebar" style="width:350px">
@@ -305,6 +308,12 @@
 			<i class="calendar alternate icon"></i>
 			<div class="menu">
 				<a class="item" id="showcalendar" style="background:#1E2430!important;color:#FFFFFF!important">Calendar</a>
+			</div>
+		</div>
+		<div class="main_menu_item ui winfrm simple dropdown item">
+			<i class="newspaper outline icon"></i>
+			<div class="menu">
+				<a class="item" id="shownews" style="background:#1E2430!important;color:#FFFFFF!important">News</a>
 			</div>
 		</div>
 		<div class="main_menu_item ui winfrm simple dropdown item">
@@ -431,6 +440,7 @@
 	var backboneMode = true
 	var layoutMode = true
 	var widgetMode = false
+	var defaultIndicatorsMode = true
 	var colorpickerMode = true
 	var newsMode = true
 	var calendarMode = true
@@ -533,6 +543,13 @@
 			$('#calendar').css('height', '400px')
 			$('#calendar').transition('disable')
 			$('#calendar').modal({autofocus: false}).modal('show')
+		})
+
+		$('#shownews').on('click', function () {
+			$('#news')
+			.sidebar('setting', 'transition', 'overlay')
+			.sidebar('setting', 'dimPage', false)
+			.sidebar('toggle')
 		})
 
 		$('#showcolorpicker').on('click', function () {
