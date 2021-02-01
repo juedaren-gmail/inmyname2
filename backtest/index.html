@@ -90,6 +90,19 @@
 			cursor: pointer;
 		}
 
+		iframe {
+			overflow: scroll;
+			width: 100%;
+			height: 100%;
+			border: 0px solid black;
+			padding: 0;
+			margin: 0;
+		}
+
+		.ui.menu {
+			border: none
+		}
+
 		.ui.tabular.menu .active.item {
 			background: #FFFFFF;
 			margin-bottom: -2px;
@@ -101,14 +114,19 @@
 		}
 
 		.ui.tabular.menu .item {
-			background: #303030;
-			color: #CCCCCC;
+			background: #EEEEEE;
+			color: #222222;
 		}
 
 		.ui.tabular.menu a.item:hover,
 		.ui.tabular.menu .item:hover {
-			background: #505050;
-			color: #CCCCCC;
+			background: #EEEEEE;
+			color: #222222;
+		}
+
+		.ui.top.attached.tabular.menu {
+			background: #EEEEEE;
+			border-radius: 0;
 		}
 
 		.ui.bottom.tabular.menu .active.item {
@@ -159,7 +177,13 @@
 		#testtext {
 			position: absolute;
 			width: 100%;
-			height: 400px;
+			height: 500px;
+		}
+
+		#testtextc {
+			position: absolute;
+			width: 100%;
+			height: 500px;
 		}
 
 		.ui.selection.dropdown {
@@ -193,9 +217,17 @@
 				padding-left: 36px!important;
 			}
 
-            .main_menu_item2 {
-                display: none!important;
-            }
+      .main_menu_item2 {
+          display: none!important;
+      }
+
+			#cpp {
+				display: none;
+			}
+
+			#consolepanel {
+				display: none;
+			}
 		}
 
 		.ui.dropdown .menu {
@@ -216,44 +248,99 @@
 	style="padding-left:5px;padding-right:0px;width:350px;height:100%;overflow:hidden">
 	<div style="width:100%;height:100%;overflow-y:scroll;padding-right:35px;box-sizing:content-box;padding-top:10px">
 		<div class="row">
-			<input type="range" min="0" max="990" value="500" class="rangeslider" style="display:none" id="speedrange" autocomplete="off">
-		</div>
-
-		<div class="row">
 			<div id="test_s"></div>
-		</div>
-
-		<div class="row">
-			<div id="test_b_d_p" style="margin:0px;padding:0px"></div>
-		</div>
-
-		<div class="row">
-			<div id="test_b_o_p" style="margin:0px;padding:0px"></div>
 		</div>
 	</div>
 </div>
 <div id="accountsummarysidebar" class="ui noanimation right vertical menu sidebar" style="width:350px">
 	<div id="test_a_s"></div>
 </div>
-<div id="orderstradessidebar" class="ui noanimation bottom menu sidebar" style="background:#111111;overflow-x:hidden">
+<div id="orderstradessidebar" class="ui noanimation bottom menu sidebar" style="background:#EEEEEE;overflow-x:hidden">
 	<div class="row" style="width:100%">
 		<div id="test_o"></div>
 	</div>
 </div>
-<div id="eassidebar" class="ui noanimation bottom menu sidebar" style="background:#111111">
+<div id="eassidebar" class="ui noanimation bottom menu sidebar" style="background:#EEEEEE">
 	<div class="row" style="width:100%">
 		<div id="test_e"></div>
 	</div>
 </div>
-<div id="optimizationsidebar" class="ui noanimation bottom menu sidebar" style="background:#111111">
+<div id="optimizationsidebar" class="ui noanimation bottom menu sidebar" style="background:#EEEEEE">
 	<div class="row" style="width:100%">
 		<div id="test_op"></div>
 	</div>
 </div>
-<div class="ui small modal" id="console">
-	<div class="ui fluid large primary submit button" id="run" onclick="run1()">Run</div>
-	<div class="field">
-		<div id="testtext"></div>
+<div id="console" class="ui noanimation bottom menu sidebar" style="background:#EEEEEE">
+	<div class="row" style="width:100%;height:550px;overflow:hidden">
+		<div class="ui tiny top attached tabular menu">
+			<a class="programl item" id="closeprograml"><i class="times circle icon"></i></a>
+			<a class="programl active item" data-tab="javascript" id="javascript">Javascript</a>
+			<a class="programl item" data-tab="cpp" id="cpp">C / C++ (in development)</a>
+			<a class="programl item" data-tab="eastudio" id="eastudio">Expert Advisor Studio</a>
+		</div>
+		<div class="ui attached active tab segment" id="javascriptseg" data-tab="javascript" style="width:100%;height:100%;padding-top:5px;padding-left:0;padding-right:0">
+			<div class="ui grid" style="height:100%">
+				<div class="ten wide column" style="border-right:5px solid #EEEEEE;padding-right:0;padding-left:0">
+					<div class="row" style="text-align:center;margin-bottom:5px">
+						<div class="ui button" id="run" onclick="run1()" style="width:200px;background:#EEEEEE">Run</div>
+					</div>
+					<div class="row" style="background:#FFFFFF;width:100%;border-top:1px solid #EEEEEE">
+						<div id="testtext"></div>
+					</div>
+				</div>
+				<div class="six wide column" style="height:100%;padding:0;background:#EEEEEE">
+					<div class="row" style="height:100%">
+						<div style="width:100%;height:100%;background:#EEEEEE">
+							<div class="row" style="margin-top:15px">
+								<input type="range" min="0" max="990" value="500" class="rangeslider" style="display:block;background:#CCCCCC;height:5px" id="speedrange" autocomplete="off">
+							</div>
+
+							<div class="row" style="margin-top:20px;padding:20px">
+								<p>Please note that if you uncheck the "RENDER" option on the "Replayer" dialogue or you are optimizing the parameters, then the screen will be blocked until the backtesting is done.</p>
+							</div>
+
+							<div class="row">
+								<div id="test_b_d_p" style="margin:0px;padding:0px"></div>
+							</div>
+
+							<div class="row">
+								<div id="test_b_o_p" style="margin:0px;padding:0px"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ui attached tab segment" id="cppseg" data-tab="cpp" style="width:100%;height:100%;padding-left:0">
+			<div class="ui grid" style="height:100%">
+				<div class="ten wide column" style="border-right:5px solid #EEEEEE;padding-right:0;padding-left:0">
+					<div id="testtextc"></div>
+				</div>
+				<div class="six wide column" style="height:100%;padding:0;background:#CCCCCC" id="consolepanel">
+					<div class="row" style="height:100%">
+						<div style="width:100%;height:100%;background:#EEEEEE">
+							<div class="ui fluid basic buttons" style="border-radius:0">
+								<div class="ui button" id="generateindi" onclick="generateIndi()" style="border-radius:0">Generate Indicator</div>
+								<div class="ui button" id="generateea" onclick="generateEa()" style="border-radius:0">Generate EA</div>
+								<div class="ui button" id="compileindi" onclick="compileIndi()" style="border-radius:0">Compile Indicator</div>
+								<div class="ui button" id="compileea" onclick="compileEa()" style="border-radius:0">Compile EA</div>
+							</div>
+							<div style="height:150px;width:100%">
+								<textarea name="cppcode" id="cppcode" style="font-size:12px;width:100%;height:100%;padding:10px;border:1px solid #EEEEEE" rows="15" spellcheck="false"></textarea>
+							</div>
+							<div style="height:150px;width:100%;margin-top:5px;background:#EEEEEE">
+								<textarea name="jsoncode" id="jsoncode" style="font-size:12px;width:100%;height:100%;padding:10px;border:1px solid #EEEEEE" rows="15" spellcheck="false"></textarea>
+							</div>
+							<div style="height:100%;width:100%;padding:10px" id="consolelog">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ui attached tab segment" id="eastudioseg" data-tab="eastudio" style="width:100%;height:100%;padding:0">
+			<iframe src="https://www.fintechee.com/ea-studio/"></iframe>
+		</div>
 	</div>
 </div>
 
@@ -385,6 +472,7 @@
 <script type="text/javascript" src="https://www.inmy.name/spectrum/spectrum.js"></script>
 <script type="text/javascript" src="https://www.inmy.name/js/d3/d3.min.js"></script>
 <script type="text/javascript" src="https://www.inmy.name/js/cc/u.js"></script>
+<script type="text/javascript" src="https://www.inmy.name/js/cc/cpp.js"></script>
 
 <script type="text/javascript" src="https://www.inmy.name/js/ace/ace.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://www.inmy.name/js/ace/theme-chrome.js" charset="utf-8"></script>
@@ -395,6 +483,7 @@
 <script defer>
 
 	var editor = null
+	var editorForC = null
 	var colorStyle = "blue"
 	var brokerlessMode = false
 	var backboneMode = true
@@ -417,12 +506,14 @@
 			changeReplaySpeed(this)
 		}
 
+		$(".programl").tab()
+
 		$('.noanimation').transition('disable')
 
 		$('#showconsole').on('click', function () {
-			$('#console').transition('disable')
-			$('#console').modal({autofocus: true}).modal('show')
-			$('body').css('height', '100%')
+			$('#console')
+			.sidebar('setting', 'transition', 'overlay')
+			.sidebar('toggle')
 		})
 
 		$('#showeas').on('click', function () {
@@ -483,19 +574,44 @@
 			showReplay()
 		})
 
+		$('#closeprograml').on({'click': function () {
+				$('#console').sidebar('hide')
+		}})
+
 		initForBackTest()
 
 		editor = ace.edit("testtext")
 		editor.setTheme("ace/theme/chrome")
 		var JavaScriptMode = ace.require("ace/mode/javascript").Mode
 		editor.session.setMode(new JavaScriptMode())
+
+		editorForC = ace.edit("testtextc")
+		editorForC.setTheme("ace/theme/chrome")
 	})
 
 	function run1(){
 		eval(editor.getValue())
 		console.log(document.getElementById("testtext").value)
-		$('#console').modal({autofocus: false}).modal('hide')
 		return false
+	}
+	function generateIndi () {
+		var parsedSourceCodes = eaStudio.generateIndi(editorForC.getValue())
+		$("#cppcode").val(parsedSourceCodes.sourcecode)
+		$("#jsoncode").val(JSON.stringify(parsedSourceCodes.definition))
+	}
+
+	function generateEa () {
+		var parsedSourceCodes = eaStudio.generateEa(editorForC.getValue())
+		$("#cppcode").val(parsedSourceCodes.sourcecode)
+		$("#jsoncode").val(JSON.stringify(parsedSourceCodes.definition))
+	}
+
+	function compileIndi () {
+		eaStudio.compileIndi(editorForC.getValue())
+	}
+
+	function compileEa () {
+		eaStudio.compileEa(editorForC.getValue())
 	}
 
 </script>
