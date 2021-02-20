@@ -371,6 +371,13 @@
 	var calendarMode = true
 	var brokerless_html = "https://www.brokerless.cc/brokerless.html"
 	var report_html = "https:\/\/www.inmy.name\/report.html"
+	var sharedAccount = null
+	var sharedInvestorPassword = null
+	var locationHash = location.hash.substr(1)
+	if (locationHash != "") {
+		sharedAccount = locationHash.split(":::")[0]
+		sharedInvestorPassword = locationHash.split(":::")[1]
+	}
 
 	if (widgetMode) {
 		$('#showtradesmenuitem').hide()
