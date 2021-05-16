@@ -1,32 +1,32 @@
 var brokerDomain = {
-  scopemarkets: "bounty.run"
+  am: "am.fintechee.cloud"
 };
 var brokerPort = {
-  scopemarkets: ""
+  am: ""
 };
 var brokerProtocol = {
-  scopemarkets: "https://"
+  am: "https://"
 };
 var shopDomain = {
-  scopemarkets: "channel-sea.cc"
+  am: "channel-sea.cc"
 };
 var brokerName = {
-  scopemarkets: "in"
+  am: "in"
 };
 var signInShownBrokerName = {
-  scopemarkets: "InMyName ATC"
+  am: "InMyName ATC"
 };
 var shownBrokerName = {
-  scopemarkets: "InMyName Automated Trading Championship"
+  am: "InMyName Automated Trading Championship"
 };
 var brokerCtx = [];
-brokerCtx[brokerName.scopemarkets] = {
-	brokerName: brokerName.scopemarkets,
-	dataStreamURL: brokerProtocol.scopemarkets + brokerDomain.scopemarkets + brokerPort.scopemarkets,
-	dataBaseURL: brokerProtocol.scopemarkets + brokerDomain.scopemarkets + brokerPort.scopemarkets,
-	orderStreamURL: brokerProtocol.scopemarkets + brokerDomain.scopemarkets + brokerPort.scopemarkets,
-	orderBaseURL: brokerProtocol.scopemarkets + brokerDomain.scopemarkets + brokerPort.scopemarkets,
-	shopURL: brokerProtocol.scopemarkets + shopDomain.scopemarkets,
+brokerCtx[brokerName.am] = {
+	brokerName: brokerName.am,
+	dataStreamURL: brokerProtocol.am + brokerDomain.am + brokerPort.am,
+	dataBaseURL: brokerProtocol.am + brokerDomain.am + brokerPort.am,
+	orderStreamURL: brokerProtocol.am + brokerDomain.am + brokerPort.am,
+	orderBaseURL: brokerProtocol.am + brokerDomain.am + brokerPort.am,
+	shopURL: brokerProtocol.am + shopDomain.am,
 	logoURL: "/images/inmyname_logo.png",
 	syncServerSettingStatus: false,
 	// server setting
@@ -56,5 +56,5 @@ var BROKER_NAME = {
   FINTECHEE_DEMO: "Fintechee Demo",
   OANDA_DEMO: "Oanda Demo",
   OANDA_LIVE: "Oanda Live",
-  FOREX_SPREAD_BETTING: shownBrokerName.scopemarkets
+  FOREX_SPREAD_BETTING: shownBrokerName.am
 }
